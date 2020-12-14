@@ -1,0 +1,88 @@
+version: "3"
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile_vue
+    container_name: "frontend_cookApp"
+    volumes:
+      - "./:/app"
+      - "/app/frontend/node_modules"
+      - "/app/.vscode"
+      - "/app/.idea"
+    # 本番環境のサーバーで使用
+    # ports:
+    #   - "80:80"
+    depends_on:
+      - backend
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile_flask
+    container_name: "backend_cookApp"
+    volumes:
+      - "./:/app"
+      - "/app/.vscode"
+      - "/app/.idea"
+    ports:
+      - "5000:5000"
+    environment:
+      DATABASE_USER: root
+      DATABASE_HOST: postgres
+      DATABASE_PASSWORD: pass
+      DATABASE_NAME: cookapp
+    depends_on:
+      - postgres
+    # stdin_open: true
+    # tty: true
+
+  # mysql:
+  #   image: mysql:5.7
+  #   container_name: mysql_container
+  #   volumes:
+  #     - ./mysql/work:/var/lib/mysql
+  #   ports:
+  #     - 3306:3306
+  #   environment:
+  #     MYSQL_DATABASE: root
+  #     MYSQL_ROOT_PASSWORD: pass
+  #     MYSQL_DATABASE: lifehack
+
+  postgres:
+    image: postgres
+    container_name: "postgres_cookApp"
+    volumes:
+      - "database:/var/lib/postgresql/data"
+    expose:
+      - "5432"
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=pass
+      - POSTGRES_DB=cookapp
+    restart: always
+    stdin_open: true
+
+  # 本番環境のサーバーで使用
+  # uwsgi:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile_uwsgi
+  #   container_name: "uwsgi"
+  #   volumes:
+  #     - "./:/app"
+  #     - "/app/.vscode"
+  #     - "/app/.idea"
+  #   expose:
+  #     - "8080"
+  #   environment:
+  #     DATABASE_USER: takowasan
+  #     DATABASE_HOST: postgres
+  #     DATABASE_PASSWORD: pass
+  #     DATABASE_NAME: tabiluck
+  #   depends_on:
+  #     - postgres
+
+volumes:
+  database:
+    driver: local
