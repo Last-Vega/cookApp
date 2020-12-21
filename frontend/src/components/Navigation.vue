@@ -32,8 +32,8 @@
       <v-spacer></v-spacer>
 
       <v-toolbar-items>
-        <v-btn text>Create New Account</v-btn>
-        <v-btn text>Login</v-btn>
+        <v-btn text :to="{ name: 'Register' }" active-class="blue">Create New Account</v-btn>
+        <v-btn text :to="{ name: 'Login' }" active-class="blue">Login</v-btn>
       </v-toolbar-items>
     </v-app-bar>
     <v-main>
