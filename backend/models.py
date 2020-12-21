@@ -93,7 +93,7 @@ class Procedures(db.Model):
                         )
     order = db.Column(db.Integer)
     content = db.Column(db.String(100))
-
+    quantity = db.Column(db.Integer)
 
     def to_dict(self):
         return dict(
@@ -101,7 +101,8 @@ class Procedures(db.Model):
             user_id=self.user_id,
             title=self.title,
             time=self.time,
-            category=self.category
+            category=self.category,
+            quantity=self.quantity
         )
 
     def __repr__(self):
