@@ -1,6 +1,7 @@
 from flask import Flask, render_template
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
+from flask_jwt_extended import JWTManager
 
 # Flaskの設定
 app = Flask(__name__,

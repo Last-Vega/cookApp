@@ -1,6 +1,11 @@
 from flask import Blueprint, jsonify, request
 from .models import db
 from .models import *
+from flask_jwt_extended import (
+    jwt_required, create_access_token,
+    get_jwt_identity, get_jti, get_raw_jwt
+)
+import bcrypt
 # coding: utf-8
 
 api = Blueprint('api', __name__)

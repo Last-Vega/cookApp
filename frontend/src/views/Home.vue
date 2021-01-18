@@ -1,7 +1,6 @@
 <template>
   <div class="home">
-    <!-- <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/> -->
+    <h2>おしゃんてぃーCityは自分が購入したおしゃんなアイテムを記録するアプリです</h2>
   </div>
 </template>
 

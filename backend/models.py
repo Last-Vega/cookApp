@@ -50,8 +50,8 @@ class Users(db.Model):
     def __repr__(self):
         return '<Test %r>' % self.id
 
-class Recipes(db.Model):
-    __tablename__ = 'recipes'
+class Clothes(db.Model):
+    __tablename__ = 'clothes'
     __table_args__ = {'extend_existing': True}
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer,
@@ -60,62 +60,36 @@ class Recipes(db.Model):
                             onupdate='CASCADE',
                             ondelete='CASCADE')
                         )
-    title = db.Column(db.String(100))
-    time = db.Column(db.Integer)
+    name = db.Column(db.String(100))
+    price = db.Column(db.Integer)
     category = db.Column(db.String(100))
     image_name = db.Column(db.String(100))
-    recipeed_date = db.Column(db.Date)
+    repeat = db.Column(db.String(100))
 
     def to_dict(self):
         return dict(
             id=self.id,
             user_id=self.user_id,
-            title=self.title,
-            time=self.time,
+            name=self.name,
+            price=self.price,
             category=self.category,
             image_name=self.image_name,
-            recipeed_date=self.recipeed_date
+            repeat=self.repeat
         )
 
     def __repr__(self):
         return '<Test %r>' % self.id
 
 
-class Procedures(db.Model):
-    __tablename__ = 'procedure'
-    __table_args__ = {'extend_existing': True}
-    id = db.Column(db.Integer, primary_key=True)
-    recipe_id = db.Column(db.Integer,
-                    db.ForeignKey(
-                            'recipes.id',
-                            onupdate='CASCADE',
-                            ondelete='CASCADE')
-                        )
-    order = db.Column(db.Integer)
-    content = db.Column(db.String(100))
-    quantity = db.Column(db.Integer)
-
-    def to_dict(self):
-        return dict(
-            id=self.id,
-            user_id=self.user_id,
-            title=self.title,
-            time=self.time,
-            category=self.category,
-            quantity=self.quantity
-        )
-
-    def __repr__(self):
-        return '<Test %r>' % self.id
 
 class Tag(db.Model):
     __tablename__ = 'tags'
     __table_args__ = {'extend_existing': True}
     id = db.Column(db.Integer, primary_key=True)
     tag_name = db.Column(db.String(100))
-    recipe_id = db.Column(db.Integer,
+    clothes_id = db.Column(db.Integer,
                         db.ForeignKey(
-                            'recipes.id',
+                            'clothes.id',
                             onupdate='CASCADE',
                             ondelete='CASCADE')
                         )
@@ -124,7 +98,7 @@ class Tag(db.Model):
         return dict(
             id=self.id,
             tag_name=self.tag_name,
-            recipe_id=self.recipe_id
+            clothes_id=self.clothes_id
         )
 
     def __repr__(self):
@@ -143,10 +117,10 @@ class Like(db.Model):
         ),
         primary_key=True
     )
-    recipe_id = db.Column(
+    clothes_id = db.Column(
         db.Integer,
         db.ForeignKey(
-            'recipes.id',
+            'clothes.id',
             onupdate='CASCADE',
             ondelete='CASCADE'
         ),
@@ -156,43 +130,12 @@ class Like(db.Model):
     def to_dict(self):
         return dict(
             liker_id=self.liker_id,
-            recipe_id=self.recipe_id
+            clothes_id=self.clothes_id
         )
 
     def __repr__(self):
-        return '<Like %r, %r>' % self.liker_id, self.recipe_id
+        return '<Like %r, %r>' % self.liker_id
 
-
-class Comment(db.Model):
-    __tablename__ = 'comments'
-    __table_args__ = {'extend_existing': True}
-    id = db.Column(db.Integer, primary_key=True)
-    commenter_id = db.Column(db.Integer,
-                             db.ForeignKey(
-                                 'users.id',
-                                 onupdate='CASCADE',
-                                 ondelete='CASCADE')
-                             )
-    recipe_id = db.Column(db.Integer,
-                        db.ForeignKey(
-                            'recipes.id',
-                            onupdate='CASCADE',
-                            ondelete='CASCADE')
-                        )
-    comment_time = db.Column(db.DateTime)
-    comment = db.Column(db.String(1000))
-
-    def to_dict(self):
-        return dict(
-            id=self.id,
-            commenter_id=self.commenter_id,
-            recipe_id=self.recipe_id,
-            comment_time=self.comment_time,
-            comment=self.comment
-        )
-
-    def __repr__(self):
-        return '<Comment %r>' % self.comment
 
 
 class Follow(db.Model):

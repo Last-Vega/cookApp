@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-navigation-drawer app v-model="drawer" clipped>
+    <!-- <v-navigation-drawer app v-model="drawer" clipped>
       <v-container>
         <v-list-item>
           <v-list-item-content>
@@ -21,26 +21,26 @@
           </v-list-item>
         </v-list>
       </v-container>
-    </v-navigation-drawer>
-    <v-app-bar color="primary" dark app clipped-left>
-    <v-app-bar-nav-icon @click="drawer=!drawer">
+    </v-navigation-drawer> -->
+    <v-app-bar dark app clipped-left>
+    <!-- <v-app-bar-nav-icon @click="drawer=!drawer">
 
-      </v-app-bar-nav-icon>
+      </v-app-bar-nav-icon> -->
         <v-toolbar-title>
-          お料理日記
+          おしゃんてぃーCity
         </v-toolbar-title>
       <v-spacer></v-spacer>
 
       <v-toolbar-items>
-        <v-btn text :to="{ name: 'Register' }" active-class="blue">Create New Account</v-btn>
-        <v-btn text :to="{ name: 'Login' }" active-class="blue">Login</v-btn>
+        <!-- <v-btn text :to="{ name: 'Register' }" active-class="blue">Create New Account</v-btn>
+        <v-btn text :to="{ name: 'Login' }" active-class="blue">Login</v-btn> -->
       </v-toolbar-items>
     </v-app-bar>
     <v-main>
       <router-view />
     </v-main>
 
-    <v-footer color="primary" dark app>
+    <v-footer dark app>
       Created by Sydney
     </v-footer>
   </v-app>
