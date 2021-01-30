@@ -20,10 +20,17 @@
        return-object
      ></v-select>
 
-      <v-text-field
-      label="画像があったら教えてね"
-      >
-      </v-text-field>
+     <v-file-input
+     label="アイテムの画像を選択してね"
+     accept="image/*"
+     filled
+     prepend-icon="mdi-camera"
+     show-size
+     v-model="input_image"
+     @change="onImagePicked"
+    ></v-file-input>
+
+    <img v-if="uploadImageUrl" :src="uploadImageUrl" width="30%" />
 
     </v-card>
   </v-app>
@@ -44,7 +51,25 @@ export default {
         { label: 'パンツ' },
         { label: '香水' }
       ],
-      category: ''
+      category: '',
+      input_image: null,
+      uploadImageUrl: ''
+    }
+  },
+  methods: {
+    onImagePicked (file) {
+      if (file !== undefined && file !== null) {
+        if (file.name.lastIndexOf('.') <= 0) {
+          return
+        }
+        const fr = new FileReader()
+        fr.readAsDataURL(file)
+        fr.addEventListener('load', () => {
+          this.uploadImageUrl = fr.result
+        })
+      } else {
+        this.uploadImageUrl = ''
+      }
     }
   }
 }
